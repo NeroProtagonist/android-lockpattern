@@ -30,6 +30,7 @@ import haibison.android.lockpattern.collect.Lists;
 import haibison.android.lockpattern.utils.Randoms;
 import haibison.android.underdogs.NonNull;
 
+import static haibison.android.lockpattern.Alp.TAG;
 import static haibison.android.lockpattern.BuildConfig.DEBUG;
 
 /**
@@ -40,7 +41,7 @@ public class LockPatternUtils {
     /**
      * Used for debugging...
      */
-    private static final String CLASSNAME = LockPatternUtils.class.getName();
+    private static final String CLASSNAME = LockPatternUtils.class.getSimpleName();
 
     /**
      * "UTF-8"
@@ -52,11 +53,8 @@ public class LockPatternUtils {
      */
     public static final String SHA1 = "SHA-1";
 
-    /**
-     * This is singleton class.
-     */
-    private LockPatternUtils() {
-    }// LockPatternUtils
+    // Singleton class
+    private LockPatternUtils() {}
 
     /**
      * Deserialize a pattern.
@@ -66,20 +64,20 @@ public class LockPatternUtils {
      */
     @NonNull
     public static List<LockPatternView.Cell> stringToPattern(@NonNull String string) {
-        List<LockPatternView.Cell> result = Lists.newArrayList();
+        final List<LockPatternView.Cell> result = Lists.newArrayList();
 
         try {
             final byte[] bytes = string.getBytes(UTF8);
             for (int i = 0; i < bytes.length; i++) {
                 byte b = bytes[i];
                 result.add(LockPatternView.Cell.of(b / 3, b % 3));
-            }
+            }//for
         } catch (UnsupportedEncodingException e) {
-            // never catch this
+            Log.e(TAG, e.getMessage(), e);
         }
 
         return result;
-    }// stringToPattern()
+    }//stringToPattern()
 
     /**
      * Serialize a pattern.
@@ -89,22 +87,21 @@ public class LockPatternUtils {
      */
     @NonNull
     public static String patternToString(@NonNull List<LockPatternView.Cell> pattern) {
-        if (pattern == null) {
-            return "";
-        }
+        if (pattern == null) return "";
         final int patternSize = pattern.size();
 
-        byte[] res = new byte[patternSize];
+        final byte[] res = new byte[patternSize];
         for (int i = 0; i < patternSize; i++) {
             LockPatternView.Cell cell = pattern.get(i);
             res[i] = (byte) (cell.row * 3 + cell.column);
-        }
+        }//for
         try {
             return new String(res, UTF8);
         } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, e.getMessage(), e);
             return "";
         }
-    }// patternToString()
+    }//patternToString()
 
     /**
      * Serializes a pattern
@@ -115,22 +112,24 @@ public class LockPatternUtils {
     @NonNull
     public static String patternToSha1(@NonNull List<LockPatternView.Cell> pattern) {
         try {
-            MessageDigest md = MessageDigest.getInstance(SHA1);
+            final MessageDigest md = MessageDigest.getInstance(SHA1);
             md.update(patternToString(pattern).getBytes(UTF8));
 
-            byte[] digest = md.digest();
-            BigInteger bi = new BigInteger(1, digest);
+            final byte[] digest = md.digest();
+            final BigInteger bi = new BigInteger(1, digest);
             return String.format((Locale) null, "%0" + (digest.length * 2) + "x", bi).toLowerCase();
         } catch (NoSuchAlgorithmException e) {
+            Log.e(TAG, e.getMessage(), e);
             return "";
         } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, e.getMessage(), e);
             return "";
         }
-    }// patternToSha1()
+    }//patternToSha1()
 
     /**
      * Generates a random "CAPTCHA" pattern. By saying "CAPTCHA", this method ensures that the generated pattern is easy for the user to re-draw.
-     * <p/>
+     * <p>
      * <strong>Notes:</strong> This method is <b>not</b> optimized and <b>not</b> benchmarked yet for large size of the pattern's matrix.
      * Currently it works fine with a matrix of {@code 3x3} cells. Be careful when the size increases.
      *
@@ -143,8 +142,9 @@ public class LockPatternUtils {
      */
     @NonNull
     public static ArrayList<LockPatternView.Cell> genCaptchaPattern(final int size) throws IndexOutOfBoundsException {
-        if (size <= 0 || size > LockPatternView.MATRIX_SIZE)
-            throw new IndexOutOfBoundsException("`size` must be in range [1, `LockPatternView.MATRIX_SIZE`]");
+        if (size <= 0 || size > LockPatternView.MATRIX_SIZE) throw new IndexOutOfBoundsException(
+                "`size` must be in range [1, `LockPatternView.MATRIX_SIZE`]"
+        );
 
         final List<Integer> usedIds = Lists.newArrayList();
         int lastId = Randoms.randInt(LockPatternView.MATRIX_SIZE);
@@ -153,7 +153,7 @@ public class LockPatternUtils {
         while (usedIds.size() < size) {
             // We start from an empty matrix, so there's always a break point to exit this loop.
 
-            if (DEBUG) Log.d(CLASSNAME, " >> lastId = " + lastId);
+            if (DEBUG) Log.d(TAG, CLASSNAME + " >> lastId = " + lastId);
 
             final int lastRow = lastId / LockPatternView.MATRIX_WIDTH;
             final int lastCol = lastId % LockPatternView.MATRIX_WIDTH;
@@ -187,11 +187,11 @@ public class LockPatternUtils {
                                 lastId = rowA * LockPatternView.MATRIX_WIDTH + c;
                                 if (usedIds.contains(lastId)) lastId = -1;
                                 else break;
-                            }
-                        }
+                            }//for
+                        }//if
 
                         break;
-                    }// AB
+                    }//AB
 
                     case 1: {
                         if (colC < LockPatternView.MATRIX_WIDTH) {
@@ -200,11 +200,11 @@ public class LockPatternUtils {
                                 lastId = r * LockPatternView.MATRIX_WIDTH + colC;
                                 if (usedIds.contains(lastId)) lastId = -1;
                                 else break;
-                            }
-                        }
+                            }//for
+                        }//if
 
                         break;
-                    }// BC
+                    }//BC
 
                     case 2: {
                         if (rowC < LockPatternView.MATRIX_WIDTH) {
@@ -213,11 +213,11 @@ public class LockPatternUtils {
                                 lastId = rowC * LockPatternView.MATRIX_WIDTH + c;
                                 if (usedIds.contains(lastId)) lastId = -1;
                                 else break;
-                            }
-                        }
+                            }//for
+                        }//if
 
                         break;
-                    }// DC
+                    }//DC
 
                     case 3: {
                         if (colA >= 0) {
@@ -226,26 +226,26 @@ public class LockPatternUtils {
                                 lastId = r * LockPatternView.MATRIX_WIDTH + colA;
                                 if (usedIds.contains(lastId)) lastId = -1;
                                 else break;
-                            }
-                        }
+                            }//for
+                        }//if
 
                         break;
-                    }// AD
+                    }//AD
                     }
 
                     if (lastId >= 0) break;
-                }// for line
+                }//for line
 
                 if (lastId >= 0) break;
-            }// for distance
+            }//for distance
 
             usedIds.add(lastId);
-        }// while
+        }//while
 
         final ArrayList<LockPatternView.Cell> result = Lists.newArrayList();
         for (final int id : usedIds) result.add(LockPatternView.Cell.of(id));
 
         return result;
-    }// genCaptchaPattern()
+    }//genCaptchaPattern()
 
 }

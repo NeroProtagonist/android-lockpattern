@@ -17,14 +17,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    compileSdkVersion 24
+    buildToolsVersion '24.0.1'
 
     resourcePrefix 'alp_42447968_'
 
     defaultConfig {
         minSdkVersion 7
-        targetSdkVersion 23
+        targetSdkVersion 24
     }
     buildTypes {
         release {
@@ -37,5 +37,19 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'org.bitbucket.haibison:underdogs:+'
+    compile 'haibison.android:underdogs:+'
 }
+
+///////////
+// MAVEN //
+///////////
+
+apply plugin: 'maven'
+
+uploadArchives { repositories { mavenDeployer {
+    repository(url: "file:../../haibison.bitbucket.org/master/maven-repos/")
+
+    pom.groupId    = 'haibison.android'
+    pom.artifactId = 'lockpattern'
+    pom.version    = '10.0.0'
+}}}

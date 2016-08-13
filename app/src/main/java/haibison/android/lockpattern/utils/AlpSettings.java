@@ -24,13 +24,14 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+import haibison.android.lockpattern.Alp;
 import haibison.android.lockpattern.R;
 import haibison.android.underdogs.NonNull;
 import haibison.android.underdogs.Nullable;
 
 /**
  * All settings for the library. They are stored in {@link SharedPreferences}.
- * <p/>
+ * <p>
  * For some options, you can set them directly via tag {@code <meta-data>} inside tag {@code <activity>} in your {@code AndroidManifest.xml}.
  * Refer to setter methods for details. Note that the values in the manifest have <em>higher priority</em> than the ones from this class.
  *
@@ -38,11 +39,8 @@ import haibison.android.underdogs.Nullable;
  */
 public class AlpSettings {
 
-    /**
-     * This is singleton class.
-     */
-    private AlpSettings() {
-    }// AlpSettings
+    // Singleton class
+    private AlpSettings() {}
 
     /**
      * Generates global preference filename of this library.
@@ -52,7 +50,7 @@ public class AlpSettings {
     @NonNull
     public static final String genPreferenceFilename() {
         return String.format("%s_%s", Alp.LIB_NAME, Alp.UID);
-    }// genPreferenceFilename()
+    }//genPreferenceFilename()
 
     /**
      * Generates global database filename. the database filename.
@@ -62,7 +60,7 @@ public class AlpSettings {
     @NonNull
     public static final String genDatabaseFilename(@NonNull String name) {
         return String.format("%s_%s_%s", Alp.LIB_NAME, Alp.UID, name);
-    }// genDatabaseFilename()
+    }//genDatabaseFilename()
 
     /**
      * Gets new {@link SharedPreferences}.
@@ -73,11 +71,9 @@ public class AlpSettings {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @NonNull
     public static SharedPreferences p(@NonNull Context context) {
-        /*
-         * Always use application context.
-         */
+        // Always use application context
         return context.getApplicationContext().getSharedPreferences(genPreferenceFilename(), Context.MODE_PRIVATE);
-    }// p()
+    }//p()
 
     /**
      * Setup {@code pm} to use global unique filename and global access mode. You must use this method if you let the user change preferences
@@ -92,7 +88,7 @@ public class AlpSettings {
     public static void setupPreferenceManager(@NonNull Context context, @NonNull PreferenceManager pm) {
         pm.setSharedPreferencesMode(Context.MODE_PRIVATE);
         pm.setSharedPreferencesName(genPreferenceFilename());
-    }// setupPreferenceManager()
+    }//setupPreferenceManager()
 
     /**
      * Display preferences.
@@ -129,11 +125,8 @@ public class AlpSettings {
          */
         public static final String METADATA_CAPTCHA_WIRED_DOTS = "captchaWiredDots";
 
-        /**
-         * This is singleton class.
-         */
-        private Display() {
-        }// Display
+        // Singleton class
+        private Display() {}
 
         /**
          * Checks if the library is using stealth mode or not.
@@ -144,12 +137,13 @@ public class AlpSettings {
         public static boolean isStealthMode(@NonNull Context context) {
             return p(context).getBoolean(
                     context.getString(R.string.alp_42447968_pkey_display_stealth_mode),
-                    context.getResources().getBoolean(R.bool.alp_42447968_pkey_display_stealth_mode_default));
-        }// isStealthMode()
+                    context.getResources().getBoolean(R.bool.alp_42447968_pkey_display_stealth_mode_default)
+            );
+        }//isStealthMode()
 
         /**
          * Sets stealth mode.
-         * <p/>
+         * <p>
          * You can set this value in {@code AndroidManifest.xml} with {@link #METADATA_STEALTH_MODE}.
          *
          * @param context the context.
@@ -157,7 +151,7 @@ public class AlpSettings {
          */
         public static void setStealthMode(@NonNull Context context, boolean v) {
             p(context).edit().putBoolean(context.getString(R.string.alp_42447968_pkey_display_stealth_mode), v).commit();
-        }// setStealthMode()
+        }//setStealthMode()
 
         /**
          * Gets minimum wired dots allowed for a pattern.
@@ -168,8 +162,9 @@ public class AlpSettings {
         public static int getMinWiredDots(@NonNull Context context) {
             return p(context).getInt(
                     context.getString(R.string.alp_42447968_pkey_display_min_wired_dots),
-                    context.getResources().getInteger(R.integer.alp_42447968_pkey_display_min_wired_dots_default));
-        }// getMinWiredDots()
+                    context.getResources().getInteger(R.integer.alp_42447968_pkey_display_min_wired_dots_default)
+            );
+        }//getMinWiredDots()
 
         /**
          * Validates min wired dots.
@@ -179,14 +174,13 @@ public class AlpSettings {
          * @return the correct value.
          */
         public static int validateMinWiredDots(@NonNull Context context, int v) {
-            if (v <= 0 || v > 9)
-                v = context.getResources().getInteger(R.integer.alp_42447968_pkey_display_min_wired_dots_default);
+            if (v <= 0 || v > 9) v = context.getResources().getInteger(R.integer.alp_42447968_pkey_display_min_wired_dots_default);
             return v;
-        }// validateMinWiredDots()
+        }//validateMinWiredDots()
 
         /**
          * Sets minimum wired dots allowed for a pattern.
-         * <p/>
+         * <p>
          * You can set this value in {@code AndroidManifest.xml} with {@link #METADATA_MIN_WIRED_DOTS}.
          *
          * @param context the context.
@@ -195,7 +189,7 @@ public class AlpSettings {
         public static void setMinWiredDots(@NonNull Context context, int v) {
             v = validateMinWiredDots(context, v);
             p(context).edit().putInt(context.getString(R.string.alp_42447968_pkey_display_min_wired_dots), v).commit();
-        }// setMinWiredDots()
+        }//setMinWiredDots()
 
         /**
          * Gets max retries allowed in mode comparing pattern.
@@ -206,8 +200,9 @@ public class AlpSettings {
         public static int getMaxRetries(@NonNull Context context) {
             return p(context).getInt(
                     context.getString(R.string.alp_42447968_pkey_display_max_retries),
-                    context.getResources().getInteger(R.integer.alp_42447968_pkey_display_max_retries_default));
-        }// getMaxRetries()
+                    context.getResources().getInteger(R.integer.alp_42447968_pkey_display_max_retries_default)
+            );
+        }//getMaxRetries()
 
         /**
          * Validates max retries.
@@ -217,14 +212,13 @@ public class AlpSettings {
          * @return the correct value.
          */
         public static int validateMaxRetries(@NonNull Context context, int v) {
-            if (v <= 0)
-                v = context.getResources().getInteger(R.integer.alp_42447968_pkey_display_max_retries_default);
+            if (v <= 0) v = context.getResources().getInteger(R.integer.alp_42447968_pkey_display_max_retries_default);
             return v;
-        }// validateMaxRetries()
+        }//validateMaxRetries()
 
         /**
          * Sets max retries allowed in mode comparing pattern.
-         * <p/>
+         * <p>
          * You can set this value in {@code AndroidManifest.xml} with {@link #METADATA_MAX_RETRIES}.
          *
          * @param context the context.
@@ -233,7 +227,7 @@ public class AlpSettings {
         public static void setMaxRetries(@NonNull Context context, int v) {
             v = validateMaxRetries(context, v);
             p(context).edit().putInt(context.getString(R.string.alp_42447968_pkey_display_max_retries), v).commit();
-        }// setMaxRetries()
+        }//setMaxRetries()
 
         /**
          * Gets wired dots for a "CAPTCHA" pattern.
@@ -244,8 +238,9 @@ public class AlpSettings {
         public static int getCaptchaWiredDots(@NonNull Context context) {
             return p(context).getInt(
                     context.getString(R.string.alp_42447968_pkey_display_captcha_wired_dots),
-                    context.getResources().getInteger(R.integer.alp_42447968_pkey_display_captcha_wired_dots_default));
-        }// getCaptchaWiredDots()
+                    context.getResources().getInteger(R.integer.alp_42447968_pkey_display_captcha_wired_dots_default)
+            );
+        }//getCaptchaWiredDots()
 
         /**
          * Validates CAPTCHA wired dots.
@@ -255,14 +250,13 @@ public class AlpSettings {
          * @return the correct value.
          */
         public static int validateCaptchaWiredDots(@NonNull Context context, int v) {
-            if (v <= 0 || v > 9)
-                v = context.getResources().getInteger(R.integer.alp_42447968_pkey_display_captcha_wired_dots_default);
+            if (v <= 0 || v > 9) v = context.getResources().getInteger(R.integer.alp_42447968_pkey_display_captcha_wired_dots_default);
             return v;
-        }// validateCaptchaWiredDots()
+        }//validateCaptchaWiredDots()
 
         /**
          * Sets wired dots for a "CAPTCHA" pattern.
-         * <p/>
+         * <p>
          * You can set this value in {@code AndroidManifest.xml} with {@link #METADATA_CAPTCHA_WIRED_DOTS}.
          *
          * @param context the context.
@@ -271,9 +265,9 @@ public class AlpSettings {
         public static void setCaptchaWiredDots(@NonNull Context context, int v) {
             v = validateCaptchaWiredDots(context, v);
             p(context).edit().putInt(context.getString(R.string.alp_42447968_pkey_display_captcha_wired_dots), v).commit();
-        }// setCaptchaWiredDots()
+        }//setCaptchaWiredDots()
 
-    }// Display
+    }//Display
 
     /**
      * Security preferences.
@@ -297,11 +291,8 @@ public class AlpSettings {
          */
         public static final String METADATA_AUTO_SAVE_PATTERN = "autoSavePattern";
 
-        /**
-         * This is singleton class.
-         */
-        private Security() {
-        }// Security
+        // Singleton class
+        private Security() {}
 
         /**
          * Checks if the library is using auto-save pattern mode.
@@ -312,12 +303,13 @@ public class AlpSettings {
         public static boolean isAutoSavePattern(@NonNull Context context) {
             return p(context).getBoolean(
                     context.getString(R.string.alp_42447968_pkey_sys_auto_save_pattern),
-                    context.getResources().getBoolean(R.bool.alp_42447968_pkey_sys_auto_save_pattern_default));
-        }// isAutoSavePattern()
+                    context.getResources().getBoolean(R.bool.alp_42447968_pkey_sys_auto_save_pattern_default)
+            );
+        }//isAutoSavePattern()
 
         /**
          * Sets auto-save pattern mode.
-         * <p/>
+         * <p>
          * You can set this value in {@code AndroidManifest.xml} with {@link #METADATA_AUTO_SAVE_PATTERN}.
          *
          * @param context the context.
@@ -325,8 +317,8 @@ public class AlpSettings {
          */
         public static void setAutoSavePattern(@NonNull Context context, boolean v) {
             p(context).edit().putBoolean(context.getString(R.string.alp_42447968_pkey_sys_auto_save_pattern), v).commit();
-            if (!v) setPattern(context, null);
-        }// setAutoSavePattern()
+            if (v == false) setPattern(context, null);
+        }//setAutoSavePattern()
 
         /**
          * Gets the pattern.
@@ -338,7 +330,7 @@ public class AlpSettings {
         public static char[] getPattern(@NonNull Context context) {
             final String pattern = p(context).getString(context.getString(R.string.alp_42447968_pkey_sys_pattern), null);
             return pattern == null ? null : pattern.toCharArray();
-        }// getPattern()
+        }//getPattern()
 
         /**
          * Sets the pattern.
@@ -350,7 +342,7 @@ public class AlpSettings {
             p(context).edit()
                     .putString(context.getString(R.string.alp_42447968_pkey_sys_pattern), pattern != null ? new String(pattern) : null)
                     .commit();
-        }// setPattern()
+        }//setPattern()
 
         /**
          * Gets encrypter class.
@@ -362,11 +354,11 @@ public class AlpSettings {
         public static char[] getEncrypterClass(@NonNull Context context) {
             final String clazz = p(context).getString(context.getString(R.string.alp_42447968_pkey_sys_encrypter_class), null);
             return clazz == null ? null : clazz.toCharArray();
-        }// getEncrypterClass()
+        }//getEncrypterClass()
 
         /**
          * Sets encrypter class.
-         * <p/>
+         * <p>
          * You can set this value in {@code AndroidManifest.xml} with {@link #METADATA_ENCRYPTER_CLASS}.
          *
          * @param context the context.
@@ -374,11 +366,11 @@ public class AlpSettings {
          */
         public static void setEncrypterClass(@NonNull Context context, @Nullable Class<? extends Encrypter> clazz) {
             setEncrypterClass(context, clazz != null ? clazz.getName().toCharArray() : null);
-        }// setEncrypterClass()
+        }//setEncrypterClass()
 
         /**
          * Sets encrypter class.
-         * <p/>
+         * <p>
          * You can set this value in {@code AndroidManifest.xml} with {@link #METADATA_ENCRYPTER_CLASS}.
          *
          * @param context the context.
@@ -388,8 +380,8 @@ public class AlpSettings {
             p(context).edit()
                     .putString(context.getString(R.string.alp_42447968_pkey_sys_encrypter_class), clazz != null ? new String(clazz) : null)
                     .commit();
-        }// setEncrypterClass()
+        }//setEncrypterClass()
 
-    }// Security
+    }//Security
 
 }

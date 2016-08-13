@@ -14,36 +14,51 @@
  *   limitations under the License.
  */
 
-package haibison.android.lockpattern.utils;
+package haibison.android.lockpattern;
+
+import haibison.android.underdogs.NonNull;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Some constants about the library.
- *
- * @author Hai Bison
  */
-public class Alp {
+public final class Alp {
 
-    /**
-     * This is singleton class.
-     */
-    private Alp() {
-    }// Alp
+    // Singleton class
+    private Alp() {}
 
     /**
      * The library name.
      */
+    @NonNull
     public static final String LIB_NAME = "android-lockpattern";
 
     /**
      * The library version name.
      */
-    public static final String LIB_VERSION_NAME = "8.0.1";
+    @NonNull
+    public static final String LIB_VERSION_NAME = "10.0.0";
+
+    /**
+     * Release date.
+     */
+    @NonNull
+    public static final Calendar RELEASE_DATE = new GregorianCalendar(2016, Calendar.JULY, 25);
 
     /**
      * This unique ID is used for some stuffs such as preferences' file name.
      *
      * @since v2.6 beta
      */
+    @NonNull
     public static final String UID = "a6eedbe5-1cf9-4684-8134-ad4ec9f6a131";
+
+    /**
+     * Tag, which can be used for logging...
+     */
+    @NonNull
+    public static final String TAG = "ALP_42447968_" + LIB_VERSION_NAME;
 
 }
