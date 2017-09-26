@@ -16,9 +16,6 @@
 
 package haibison.android.lockpattern.utils;
 
-import haibison.android.underdogs.NonNull;
-import haibison.android.underdogs.Nullable;
-
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
@@ -39,6 +36,9 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+
+import haibison.android.underdogs.NonNull;
+import haibison.android.underdogs.Nullable;
 
 /**
  * The <strong>simple-and-weak</strong> encryption utilities.

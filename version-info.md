@@ -1,29 +1,21 @@
-# `10.0.0` _(July 25th, 2016)_
+# `12.0.0` _(December 23rd, 2016)_
 
 - Support: Android 7+ ([Eclair MR1][Android-Eclair-MR1])
 
 ---
 
-## Dependencies
-
-- [`haibison.android:underdogs:+`][#haibison.android:underdogs]
-
 ## Changes
 
-- Major:
+- Updated Hai Bison Maven URL to `https://haibison.bitbucket.io/maven-repos`.
+- Updated dependency [Underdogs][#haibison.android:underdogs] to `4.+`.
 
-    + Updated Maven repo to `http://haibison.bitbucket.org/maven-repos`.
-    + `ResourceUtils`: renamed methods `resolveAttribute(...)` to `resolveResourceId(...)`.
+## Dependencies
 
-- Minor:
-
-    + Added Portuguese translation. Special thanks to [Andre Batista da Silva](https://bitbucket.org/andre_bts/).
-    + Updated documentation, optimized code.
-    + Updated Gradle Wrapper to `2.14.1`, updated Android plugin for Gradle to `2.1.2`.
-    + Some other minor changes...
+- [`haibison.android:underdogs:4.+`][#haibison.android:underdogs]
 
 ---
 
 [Android-Eclair-MR1]: https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ECLAIR_MR1
+[pngquant]: https://github.com/pornel/pngquant/
 
 [#haibison.android:underdogs]: https://bitbucket.org/haibison/underdogs

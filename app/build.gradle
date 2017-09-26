@@ -18,38 +18,39 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    buildToolsVersion '25.0.2'
 
     resourcePrefix 'alp_42447968_'
 
     defaultConfig {
         minSdkVersion 7
         targetSdkVersion 24
-    }
+    }//defaultConfig
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+        }//release
+    }//buildTypes
+}//android
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'haibison.android:underdogs:+'
-}
+    compile 'haibison.android:underdogs:4.+'
+}//dependencies
 
-///////////
-// MAVEN //
-///////////
+// ╔═══════════╗
+// ║   MAVEN   ║
+// ╚═══════════╝
 
 apply plugin: 'maven'
 
 uploadArchives { repositories { mavenDeployer {
-    repository(url: "file:../../haibison.bitbucket.org/master/maven-repos/")
+    repository(url: new File('../../haibison.bitbucket.org/master/maven-repos/').getAbsoluteFile().toURI().toString())
 
     pom.groupId    = 'haibison.android'
     pom.artifactId = 'lockpattern'
-    pom.version    = '10.0.0'
+    pom.version    = '12.0.0'
 }}}
