@@ -36,21 +36,7 @@ android {
 }//android
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    compile 'haibison.android:underdogs:4.+'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'haibison.android:underdogs:4.+'
 }//dependencies
 
-// ╔═══════════╗
-// ║   MAVEN   ║
-// ╚═══════════╝
-
-apply plugin: 'maven'
-
-uploadArchives { repositories { mavenDeployer {
-    repository(url: new File('../../haibison.bitbucket.org/master/maven-repos/').getAbsoluteFile().toURI().toString())
-
-    pom.groupId    = 'haibison.android'
-    pom.artifactId = 'lockpattern'
-    pom.version    = '12.0.0'
-}}}
