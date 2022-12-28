@@ -28,7 +28,7 @@ import java.util.Locale;
 
 import haibison.android.lockpattern.collect.Lists;
 import haibison.android.lockpattern.utils.Randoms;
-import haibison.android.underdogs.NonNull;
+import android.support.annotation.NonNull;
 
 import static haibison.android.lockpattern.Alp.TAG;
 import static haibison.android.lockpattern.BuildConfig.DEBUG;

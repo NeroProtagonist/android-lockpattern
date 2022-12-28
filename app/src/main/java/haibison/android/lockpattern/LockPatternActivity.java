@@ -17,6 +17,7 @@
 package haibison.android.lockpattern;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
@@ -26,11 +27,16 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.provider.Settings;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -57,15 +63,8 @@ import haibison.android.lockpattern.widget.LockPatternUtils;
 import haibison.android.lockpattern.widget.LockPatternView;
 import haibison.android.lockpattern.widget.LockPatternView.Cell;
 import haibison.android.lockpattern.widget.LockPatternView.DisplayMode;
-import haibison.android.underdogs.Api;
-import haibison.android.underdogs.Authors;
-import haibison.android.underdogs.LayoutRes;
-import haibison.android.underdogs.NonNull;
-import haibison.android.underdogs.Nullable;
-import haibison.android.underdogs.Param;
-import haibison.android.underdogs.Permissions;
-import haibison.android.underdogs.StringRes;
-import haibison.android.underdogs.StyleRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
@@ -105,7 +104,7 @@ import static haibison.android.lockpattern.utils.AlpSettings.Security.METADATA_E
  * @author Hai Bison
  * @since v1.0
  */
-@Permissions(names = {Manifest.permission.WRITE_SETTINGS}, required = false, description = "For *reading* haptic feedback setting")
+
 public class LockPatternActivity extends Activity {
 
     private static final String CLASSNAME = LockPatternActivity.class.getSimpleName();
@@ -179,7 +178,7 @@ public class LockPatternActivity extends Activity {
      * For actions {@link #ACTION_COMPARE_PATTERN} and {@link #ACTION_VERIFY_CAPTCHA}, this key holds the number of tries that the user
      * attempted to verify the input pattern.
      */
-    @Param(type = Param.Type.OUTPUT, dataTypes = int.class)
+    //@Param(type = Param.Type.OUTPUT, dataTypes = int.class)
     public static final String EXTRA_RETRY_COUNT = CLASSNAME + ".RETRY_COUNT";
 
     /**
@@ -189,7 +188,7 @@ public class LockPatternActivity extends Activity {
      *
      * @since v1.5.3 beta
      */
-    @Param(type = Param.Type.INPUT, dataTypes = int.class)
+    //@Param(type = Param.Type.INPUT, dataTypes = int.class)
     public static final String EXTRA_THEME = CLASSNAME + ".THEME";
 
     /**
@@ -203,7 +202,7 @@ public class LockPatternActivity extends Activity {
      *
      * @since v2 beta
      */
-    @Param(type = Param.Type.IN_OUT, dataTypes = char[].class)
+    //@Param(type = Param.Type.IN_OUT, dataTypes = char[].class)
     public static final String EXTRA_PATTERN = CLASSNAME + ".PATTERN";
 
     /**
@@ -212,7 +211,7 @@ public class LockPatternActivity extends Activity {
      *
      * @since v2.4 beta
      */
-    @Param(type = Param.Type.INPUT, dataTypes = ResultReceiver.class)
+    //@Param(type = Param.Type.INPUT, dataTypes = ResultReceiver.class)
     public static final String EXTRA_RESULT_RECEIVER = CLASSNAME + ".RESULT_RECEIVER";
 
     /**
@@ -226,7 +225,7 @@ public class LockPatternActivity extends Activity {
      *     call it inside {@link LockPatternActivity} .</li>
      * </ul>
      */
-    @Param(type = Param.Type.INPUT, dataTypes = PendingIntent.class)
+    //@Param(type = Param.Type.INPUT, dataTypes = PendingIntent.class)
     public static final String EXTRA_PENDING_INTENT_OK = CLASSNAME + ".PENDING_INTENT_OK";
 
     /**
@@ -239,7 +238,7 @@ public class LockPatternActivity extends Activity {
      *     call it inside {@link LockPatternActivity} .</li>
      * </ul>
      */
-    @Param(type = Param.Type.INPUT, dataTypes = PendingIntent.class)
+    //@Param(type = Param.Type.INPUT, dataTypes = PendingIntent.class)
     public static final String EXTRA_PENDING_INTENT_CANCELLED = CLASSNAME + ".PENDING_INTENT_CANCELLED";
 
     /**
@@ -261,14 +260,14 @@ public class LockPatternActivity extends Activity {
      * @see #ACTION_COMPARE_PATTERN
      * @since v2.8 beta
      */
-    @Authors(names = "Yan Cheng Cheok")
-    @Param(type = Param.Type.INPUT, dataTypes = PendingIntent.class)
+    //@Authors(names = "Yan Cheng Cheok")
+    //@Param(type = Param.Type.INPUT, dataTypes = PendingIntent.class)
     public static final String EXTRA_PENDING_INTENT_FORGOT_PATTERN = CLASSNAME + ".PENDING_INTENT_FORGOT_PATTERN";
 
     /**
      * Use this extra to provide title for the activity.
      */
-    @Param(type = Param.Type.INPUT, dataTypes = { int.class, CharSequence.class })
+    //@Param(type = Param.Type.INPUT, dataTypes = { int.class, CharSequence.class })
     public static final String EXTRA_TITLE = CLASSNAME + ".TITLE";
 
     /**
@@ -287,8 +286,9 @@ public class LockPatternActivity extends Activity {
      * <strong>Note:</strong> please have a look at {@code layout/alp_42447968_lock_pattern_activity} and
      * {@code layout/alp_42447968_lock_pattern_activity_land}. In your layouts, you have to provide same components with same IDs.
      */
+    @SuppressLint("SupportAnnotationUsage")
     @LayoutRes
-    @Param(type = Param.Type.INPUT, dataTypes = int.class)
+    //@Param(type = Param.Type.INPUT, dataTypes = int.class)
     public static final String EXTRA_LAYOUT = CLASSNAME + ".LAYOUT";
 
     /**
@@ -350,7 +350,7 @@ public class LockPatternActivity extends Activity {
          * Makes new instance.
          *
          * @param context the context.
-         * @param clazz   class of {@link LockPatternActivity} or its subclass.
+         * @param {@link LockPatternActivity} or its subclass.
          * @param action  action.
          */
         public IntentBuilder(@NonNull Context context, @NonNull Class<? extends LockPatternActivity> cls, @NonNull String action) {
@@ -401,7 +401,7 @@ public class LockPatternActivity extends Activity {
          */
         @Nullable
         public PendingIntent buildPendingIntent(int requestCode, int flags,
-                                                @Api(level = VERSION_CODES.JELLY_BEAN, required = false) @Nullable Bundle options) {
+                                               @Nullable Bundle options) {
             if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
                 //noinspection ResourceType
                 return PendingIntent.getActivity(context, requestCode, build(), flags, options);
@@ -427,7 +427,7 @@ public class LockPatternActivity extends Activity {
          * @param requestCode request code.
          * @param options     options.
          */
-        @Api(level = VERSION_CODES.JELLY_BEAN)
+        @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
         @TargetApi(VERSION_CODES.JELLY_BEAN)
         public void startForResult(@NonNull Activity activity, int requestCode, @Nullable Bundle options) {
             activity.startActivityForResult(build(), requestCode, options);
@@ -439,7 +439,7 @@ public class LockPatternActivity extends Activity {
          * @param fragment    your fragment.
          * @param requestCode request code.
          */
-        @Api(level = VERSION_CODES.HONEYCOMB)
+        @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
         @TargetApi(VERSION_CODES.HONEYCOMB)
         public void startForResult(@NonNull Fragment fragment, int requestCode) {
             fragment.startActivityForResult(build(), requestCode);
@@ -452,7 +452,7 @@ public class LockPatternActivity extends Activity {
          * @param requestCode request code.
          * @param options     options.
          */
-        @Api(level = VERSION_CODES.JELLY_BEAN)
+        @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
         @TargetApi(VERSION_CODES.JELLY_BEAN)
         public void startForResult(@NonNull Fragment fragment, int requestCode, @Nullable Bundle options) {
             fragment.startActivityForResult(build(), requestCode, options);
@@ -468,7 +468,7 @@ public class LockPatternActivity extends Activity {
         /**
          * Builds the intent via {@link #build()} and calls {@link Context#startActivity(Intent, Bundle)}.
          */
-        @Api(level = VERSION_CODES.JELLY_BEAN)
+        @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
         @TargetApi(VERSION_CODES.JELLY_BEAN)
         public void start(@Nullable Bundle options) {
             context.startActivity(build(), options);
@@ -1196,5 +1196,6 @@ public class LockPatternActivity extends Activity {
         }//onClick()
 
     };//mViewGroupProgressBarOnClickListener
+
 
 }

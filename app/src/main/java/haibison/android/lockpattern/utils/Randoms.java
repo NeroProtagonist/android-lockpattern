@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 import haibison.android.lockpattern.collect.Lists;
-import haibison.android.underdogs.NonNull;
+import android.support.annotation.NonNull;
 
 /**
  * Random utilities.

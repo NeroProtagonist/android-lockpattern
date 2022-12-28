@@ -26,8 +26,8 @@ import android.preference.PreferenceManager;
 
 import haibison.android.lockpattern.Alp;
 import haibison.android.lockpattern.R;
-import haibison.android.underdogs.NonNull;
-import haibison.android.underdogs.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * All settings for the library. They are stored in {@link SharedPreferences}.

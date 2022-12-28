@@ -21,8 +21,8 @@ import android.os.Handler;
 import java.util.List;
 
 import haibison.android.lockpattern.collect.Lists;
-import haibison.android.underdogs.NonNull;
-import haibison.android.underdogs.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Float animator.

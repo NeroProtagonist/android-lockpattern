@@ -19,7 +19,7 @@ package haibison.android.lockpattern;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import haibison.android.underdogs.NonNull;
+import android.support.annotation.NonNull;
 
 /**
  * Some constants about the library.

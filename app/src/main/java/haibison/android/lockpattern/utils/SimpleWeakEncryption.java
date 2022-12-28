@@ -37,8 +37,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import haibison.android.underdogs.NonNull;
-import haibison.android.underdogs.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * The <strong>simple-and-weak</strong> encryption utilities.
