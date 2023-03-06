@@ -23,7 +23,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Window;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import static haibison.android.lockpattern.Alp.TAG;
 import static haibison.android.lockpattern.BuildConfig.DEBUG;

@@ -21,7 +21,8 @@ import android.content.Context;
 import java.util.List;
 
 import haibison.android.lockpattern.widget.LockPatternView.Cell;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * Interface for encrypter.

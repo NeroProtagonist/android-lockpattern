@@ -33,10 +33,6 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.provider.Settings;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -46,6 +42,11 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,8 +64,9 @@ import haibison.android.lockpattern.widget.LockPatternUtils;
 import haibison.android.lockpattern.widget.LockPatternView;
 import haibison.android.lockpattern.widget.LockPatternView.Cell;
 import haibison.android.lockpattern.widget.LockPatternView.DisplayMode;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 

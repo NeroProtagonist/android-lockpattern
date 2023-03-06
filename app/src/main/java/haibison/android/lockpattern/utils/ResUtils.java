@@ -19,10 +19,10 @@ package haibison.android.lockpattern.utils;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
-import android.support.annotation.AttrRes;
 import android.util.TypedValue;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
 
 /**
  * Resources' utilities.
